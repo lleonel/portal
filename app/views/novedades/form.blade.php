@@ -23,9 +23,8 @@
             {{Form::imagen('imagen','Imagen')}}
             
             {{Form::submit('Guardar',array('class'=>'btn btn-success'))}}
-
             {{Form::close()}} 
-             
+
    		 </div>
   </div>
 

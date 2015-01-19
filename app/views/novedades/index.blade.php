@@ -14,7 +14,7 @@
 							<img src="uploads/novedades/{{ $novedad->imagen }}" style="height:150px;">
 							<div class="caption">
 								<small>{{$novedad->fecha_alta}}</small>
-								<h4>{{substr($novedad->titulo ,0 , 70)}}...</h4>
+								<a href="admin/novedades/detalle/{{$novedad->id}}" ><h4>{{substr($novedad->titulo ,0 , 70)}}...</h4></a>
 								<p>
 									<a 	href="admin/novedades/edit/{{ Crypt::encrypt($novedad->id) }}" class="btn btn-xs btn-default">Editar</a>
 									<a  href="admin/novedades/del/{{ Crypt::encrypt($novedad->id) }}"  class=" delete btn btn-xs btn-danger">Eliminar</a>

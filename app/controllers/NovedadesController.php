@@ -186,6 +186,13 @@ class NovedadesController extends BaseController{
 
 	}
 
+	public function getDetalle($id = null)
+	{
+		$data['novedad'] = Novedad::find($id);
+
+		return View::make('novedades.detalle')->with($data);
+	}
+
 
 }
 ?>

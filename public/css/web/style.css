@@ -1,0 +1,12 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;subset=latin,latin-ext);
+body{
+	font-size: 13px;
+	line-height: 22px;
+	color: #333333;
+	border-top: 0px solid #eee;
+	background:#333333;
+	padding-top: 43px;
+	font-family:'Open Sans',sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+

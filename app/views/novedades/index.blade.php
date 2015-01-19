@@ -18,12 +18,10 @@
 		@foreach ($novedades as $novedad)
 			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 			<div class="thumbnail">
-			<img src="uploads/novedades/{{ $novedad->imagen }}" alt="">
+				<img src="uploads/novedades/{{ $novedad->imagen }}" alt="">
 			<div class="caption">
-			<h3>{{substr($novedad->titulo ,0,20)}}...</h3>
-			<p>
-				{{ $novedad->encabezado }}
-			</p>
+				<small>{{$novedad->fecha_alta}}</small>
+			<h3>{{substr($novedad->titulo ,0 , 50)}}...</h3>
 			<p>
 			<a  onclick="if(!eliminar())return"  href="admin/novedades/del/{{ Crypt::encrypt($novedad->id) }}"class="btn btn-primary">Editar</a>
 			<a 	href="admin/novedades/edit/{{ Crypt::encrypt($novedad->id) }}"  class="btn btn-default">Eliminar</a>

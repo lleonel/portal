@@ -42,14 +42,14 @@ class NovedadesController extends BaseController{
 		$id 	 =  Crypt::decrypt($id);
 		$novedad =  Novedad::find($id);
 
-		$file = Input::file('file');
+		$file = Input::file('imagen');
 
 		if($file)
 		{
 
 			$date 	  =  new DateTime();		
 			$filename =  $date->getTimestamp().".".$file->getClientOriginalExtension();
-			$upload_success = Input::file('file')->move($this->destinationPath , $filename);
+			$upload_success = Input::file('imagen')->move($this->destinationPath , $filename);
 
 				if( $upload_success ) 
 				{
@@ -64,7 +64,7 @@ class NovedadesController extends BaseController{
 		}
 
 		$novedad->titulo 		= Input::get('titulo');
-		$novedad->fecha_alta	=  date('Y-m-d',strtotime(Input::get('fecha')));
+		$novedad->fecha_alta	=  date('Y-m-d',strtotime(Input::get('fecha_alta')));
 		$novedad->encabezado	= Input::get('encabezado');
 		$novedad->cuerpo		= Input::get('cuerpo');
 		
@@ -80,7 +80,7 @@ class NovedadesController extends BaseController{
 	public function getIndex(){
 
 		$resp['novedades'] = Novedad::orderBy('fecha_alta', 'desc')
-		->get();
+		->paginate('12');
 
 		Return View::make('novedades.index')->with($resp);
 	}
@@ -120,15 +120,14 @@ class NovedadesController extends BaseController{
 
 		$novedad = new Novedad;
 
-		$file = Input::file('file');
+		$file = Input::file('imagen');
 
 		if($file){
-
 
 			$date 	  =  new DateTime();
 			$filename =  $date->getTimestamp().".".$file->getClientOriginalExtension();
 	
-			$upload_success = Input::file('file')->move($this->destinationPath, $filename);
+			$upload_success = Input::file('imagen')->move($this->destinationPath, $filename);
 
 				if( $upload_success ) {
 
@@ -141,10 +140,10 @@ class NovedadesController extends BaseController{
 				}	
 		}
 			
-		$novedad->titulo 	 = Input::get('titulo');
-		$novedad->fecha_alta  = date('Y-m-d',strtotime(Input::get('fecha')));
-		$novedad->encabezado = Input::get('encabezado');
-		$novedad->cuerpo	 = Input::get('cuerpo');	
+		$novedad->titulo 	 	= Input::get('titulo');
+		$novedad->fecha_alta  	= date('Y-m-d',strtotime(Input::get('fecha_alta')));
+		$novedad->encabezado 	= Input::get('encabezado');
+		$novedad->cuerpo	 	= Input::get('cuerpo');	
 		$novedad->save();
 		
 		//return Redirect::back()->with('success', 'Cargado Correctamente.');
@@ -158,11 +157,10 @@ class NovedadesController extends BaseController{
 
 	public function getEdit($id = null) {
 		
-		$id = Crypt::decrypt($id);
-		$novedad = Novedad::find($id);
-
+		$id 		= Crypt::decrypt($id);
+		$novedad 	= Novedad::find($id);
+		
 		$resp['novedad'] = $novedad;
-
 		Return View::make('novedades.form')->with($resp);
 
 	}

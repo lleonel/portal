@@ -2,33 +2,30 @@
 
 @section('content')
 
-	<div class="row-fluid">
-    	<div class="span2">	
-			<h3>Novedades</h3>
-			<p><a href="admin/novedades"><i class="icon-th-list"></i> Lista </a></p>
-			<p><a href="admin/novedades/new"><i class="icon-plus"></i> Agregar  </a></p>		
-    	</div>
-    
-    	<div class="span10">
 
+<div class="row"> 
+    <div class="col-xs-12">
+    
+    <h4><strong>Novedades</strong></h4>
+
+    <hr>
+    
             @if(isset($novedad))
                 {{Form::model($novedad, array('enctype'=>'multipart/form-data'))}}
-                    <div class="span2">
-                        <a href="#" class="thumbnail">
-                            <img src="uploads/novedades/{{$novedad->imagen}}" alt="">
-                        </a>
-                    </div>
             @else
                 {{Form::open(array('enctype'=>'multipart/form-data'))}}
             @endif
 
-                {{Form::date('fecha_alta')}}
-                {{Form::texto('titulo')}}
-                {{Form::text('encabezado')}}
-                {{Form::edit('cuerpo')}}
-                {{Form::submit()}}
+            {{Form::date('fecha_alta')}}
+            {{Form::texto('titulo','Título')}}
+            {{Form::texto('encabezado','Encabezado')}}
+            {{Form::edit('cuerpo','Cuerpo Noticia')}}
+            {{Form::imagen('imagen','Imagen')}}
+            
+            {{Form::submit('Guardar',array('class'=>'btn btn-success'))}}
 
-                {{Form::close()}}  
+            {{Form::close()}} 
+             
    		 </div>
   </div>
 

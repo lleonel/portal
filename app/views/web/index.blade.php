@@ -8,26 +8,30 @@
 
 			    	@foreach ($novedades as $novedad)
 
-			    		<article class="post">
-				    		<div class="post-offset">
-				    			<span class="resp">
-				    				<figure class="post-icon">
-				    					<a href="{{ route('web_get_noticias_show', [$novedad->slug, $novedad->id]) }}" title="">
-				    						<img src="uploads/novedades/{{ $novedad->imagen }}" width="350" class="img-responsive"/>
-				    					</a>
-				    				</figure>
-				    			</span>
-				    			<h1><span id="ctl00_Contenido_lbl_Titulo">{{$novedad->titulo}} </span></h1>
-				    			<p><span id="ctl00_Contenido_lbl_bajada">{{$novedad->encabezado}}</span></p>
-				    			<div class="post-options">
-				    				<a href="novedades/{{Crypt::encrypt($novedad->id)}}" class="btn btn-medium more-link">
-				    					<span class="icon icon-bubble-1"></span> 
-				    					<span class="resp">Leer más</span>
-				    				</a>
-				    			</div>
-				    		</div>
-				    	</article><!-- /post -->
-				    
+			    	
+
+		    		<article class="post">
+			    		<div class="post-offset">
+			    			<span class="resp">
+			    				<figure class="post-icon">
+			    					<a href="{{ route('web_get_noticias_show', [$novedad->slug, $novedad->id]) }}" title="">
+			    						 <div class="image-cropper">
+			    							<img src="uploads/novedades/{{ $novedad->imagen }}"  class="img-responsive bottom"/>	
+			    						 </div>    						
+			    					</a>
+			    				</figure>
+			    			</span>
+			    			<h1><span id="ctl00_Contenido_lbl_Titulo">{{substr($novedad->titulo,0,70)}}...</span></h1>
+			    			<p><span id="ctl00_Contenido_lbl_bajada">{{substr($novedad->encabezado,0,100)}}...</span></p>
+			    			<div class="post-options">
+			    				<a href="novedades/{{Crypt::encrypt($novedad->id)}}" class="btn btn-medium more-link">
+			    					<span class="icon icon-bubble-1"></span> 
+			    					<span class="resp">Leer más</span>
+			    				</a>
+			    			</div>
+			    		</div>
+			    	</article><!-- /post -->
+			    
 
 			    	@endforeach
 				   

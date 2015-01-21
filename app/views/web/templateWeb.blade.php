@@ -26,6 +26,18 @@
 
         <style type="text/css">
 
+            .image-cropper {
+                    position: relative;
+                    width: 355px;
+                    height: 232px;
+                    overflow: hidden;
+            }
+
+            .bottom {
+               position: absolute;
+             
+            }
+
             .cont-banner { 
                             background-color: white;
                             padding: 8px 5px 5px 5px;

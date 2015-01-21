@@ -14,8 +14,8 @@ class Documento extends Eloquent{
 	}*/
 
 	//Relaciones
-	public function Area() {
-
+	public function Area() 
+	{
 		return $this->belongsTo('Area', 'id_area');
 	}
 
@@ -37,6 +37,8 @@ class Documento extends Eloquent{
 
 	}
 
+
+	/*
 	public function getIdAreaAttribute ($value)
 	{
 		
@@ -44,6 +46,7 @@ class Documento extends Eloquent{
 
 		return $area->area;
 	}
+	*/
 
  	
 }

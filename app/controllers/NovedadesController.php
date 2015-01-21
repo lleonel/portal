@@ -123,7 +123,7 @@ class NovedadesController extends BaseController{
 		$file = Input::file('imagen');
 
 		if($file){
-
+			
 			$date 	  =  new DateTime();
 			$filename =  $date->getTimestamp().".".$file->getClientOriginalExtension();
 	

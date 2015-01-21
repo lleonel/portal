@@ -12,7 +12,6 @@
         <meta name="viewport" content="width=device-width">
         <base href="{{ asset('') }}">
 
-
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="stylesheet" href="packages/bootstrap/css/bootstrap.css" >
         <link rel="stylesheet" href="css/web/normalize.css">
@@ -24,40 +23,41 @@
         
          @yield('css')
 
-        <style type="text/css">
-
-            .image-cropper {
-                    position: relative;
-                    width: 355px;
-                    height: 232px;
-                    overflow: hidden;
+        <style type="text/css"> 
+            .image-cropper 
+            {
+                position: relative;
+                width: 355px;
+                height: 232px;
+                overflow: hidden;
             }
 
-            .bottom {
+            .bottom 
+            {
                position: absolute;
-             
             }
 
-            .cont-banner { 
-                            background-color: white;
-                            padding: 8px 5px 5px 5px;
-                        }
+            .cont-banner
+            { 
+                background-color: white;
+                padding: 8px 5px 5px 5px;
+            }
 
-            .cont-banner img { 
-                                box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
-                                -webkit-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
-                                -moz-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
-                                -o-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
-                                margin-bottom: 8px;
-                                width: 400px; height:100px;
-                             }
+            .cont-banner img 
+            { 
+                box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
+                -webkit-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
+                -moz-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
+                -o-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
+                margin-bottom: 8px;
+                width: 400px; height:100px;
+            }
 
             .cont-banner ul 
             {
                 padding: 0;
                 margin: 0;
             }
-
         </style>
 
         <!--[if IE 8]> <link rel="stylesheet" href="css/ie8.css"> <![endif]-->        
@@ -144,9 +144,9 @@
             $(document).on('click', '.button-qr', function() {
                 var remote = $(this).data('href');
                 var html = 'cargando...';
-                $($(this).data('target')).html(html);
-                $($(this).data('target')).load(remote);
-                $('#mdlQr').modal('show');
+                     $($(this).data('target')).html(html);
+                     $($(this).data('target')).load(remote);
+                     $('#mdlQr').modal('show');
             });
 
            // $("#openQr").each(function(){     

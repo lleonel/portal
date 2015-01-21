@@ -10,16 +10,16 @@
 
             <li class="active">
               <a href="admin/">
-              <i class="glyphicon glyphicon-home">
-              </i>
-              Inicio
+                <i class="glyphicon glyphicon-home">
+                </i>
+                Inicio
               </a>
             </li>
 
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
               <i class="glyphicon glyphicon-time "></i>
-              Novedades <b class="caret"></b>
+              Novedadesdas <b class="caret"></b>
               </a>
                 <ul class="dropdown-menu">
                   <li><a href="admin/novedades">Lista de Novedades</a></li>

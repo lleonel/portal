@@ -2,7 +2,7 @@
 
 class DocumentosController extends BaseController{
 
-	public 	$destinationPath = 'storage/uploads/documentos/';
+	public 	$destinationPath = '/storage/uploads/documentos/';
 
 	
 	//  authenticar usuarios antes de entrar al control 
@@ -26,25 +26,22 @@ class DocumentosController extends BaseController{
 
 		$id 		=  Crypt::decrypt($id);	
 		$documento 	=  Documento::find($id);
-		$file 		=  Input::file('file');
+		$file 		=  Input::file('documento');
 
 		if($file)
 		{
-
 			$nombre		=  $file->getClientOriginalName();
-			$date 	  	=  new DateTime();	
-			$sub 		=  $date->getTimestamp();
+			$date 	 	=  new DateTime();
 
-			$upload_success =  Input::file('file')->move($this->destinationPath."/". $nombre);
+			$filename	=  $date->getTimestamp().".".$file->getClientOriginalExtension();
+			
+			$upload_success =  Input::file('documento')->move(app_path().$this->destinationPath, $filename);
 
 				if( $upload_success ) 
 				{
-					//File::delete($this->destinationPath.$documento->documento);
-					$folder	=	explode('/',$this->destinationPath.$documento->documento);
-	
-					File::deleteDirectory($folder[0]."/".$folder[1]."/".$folder[2]);
-
-					$documento->documento = $nombre ;
+					File::delete(app_path().$this->destinationPath.$documento->documento);
+					
+					$documento->documento 	=  $filename ;
 
 				} else {
 
@@ -54,10 +51,9 @@ class DocumentosController extends BaseController{
 		}
 
 		$documento->titulo 		= Input::get('titulo');
+		$documento->descripcion = Input::get('descripcion');
 		$documento->fecha_alta	= date('Y-m-d',strtotime(Input::get('fecha_alta')));
-
 		$documento->id_area		= Input::get('id_area');	
-
 		$documento->save();		
 
 		return Redirect::to('admin/documentos')->with('success', 'Modificado Correctamente.');		
@@ -65,23 +61,16 @@ class DocumentosController extends BaseController{
 	}
 
 
-	public function getIndex(){
-
-	//	$resp['novedades'] = Novedad::orderBy('fechaAlta', 'desc')
-	//	->get();
-	//	Return View::make('novedades.index')->with($resp);
-
+	public function getIndex()
+	{
 
 		$resp['titulo'] =  "Lista de Documentos";
 
 		$resp['documentos'] = Documento::with('area')
-		->get();
+		->paginate(10);
 
 		return View::make('documentos.index')->with($resp);
 	}
-
-
-
 
 	public function getNew() {
 	
@@ -89,7 +78,7 @@ class DocumentosController extends BaseController{
 
 		$resp['areas'] = Area::lists('area', 'id');
 
-		return View::make('documentos.create')->with($resp);
+		return View::make('documentos.form')->with($resp);
 		
 	}
 
@@ -99,7 +88,7 @@ class DocumentosController extends BaseController{
 		#Validacion
 		$v = Validator::make(Input::all(), array(
 			'fecha_alta' => 'required|date_format:d-m-Y',
-			'file' => 		'required|mimes:rar,zip,pdf,doc,docx|max:2048',
+			'documento' => 	'required|mimes:rar,zip,pdf,doc,docx|max:2048',
 			'titulo' => 	'required|max:255',
 			'link' => 		'url|max:255',
 			'id_area' => 	'required|integer|exists:areas,id'
@@ -112,20 +101,30 @@ class DocumentosController extends BaseController{
 			return Redirect::back()->withErrors($v);
 		}
 
+		$documento  =  new Documento;
+		$file 		=  Input::file('documento');
 
-		$documento  = new Documento;
-		$file 		=  Input::file('file');
+		if($file){
 
-		$nombre		=  $file->getClientOriginalName();
-		$extension 	=  $file->getClientOriginalExtension();
-		
-		//$date 	 		=  new DateTime();		
-		//$sub	 		=  $date->getTimestamp();
-		$upload_success	=  $file->move(app_path().'/'.$this->destinationPath."/". $nombre);
+			$date 	 		 =  new DateTime();
+			$filename		 =  $date->getTimestamp().".".$file->getClientOriginalExtension();
+			$upload_success  =  Input::file('documento')->move(app_path().$this->destinationPath, $filename);
 
-		$documento->documento 	= $nombre;
+			if( $upload_success ) {
+
+				$documento->documento = $filename ;
+
+			} else {
+
+				return Redirect::back('error', 400);
+
+			}	
+
+		}
+
 		$documento->titulo  	= Input::get('titulo');
 		$documento->link 		= Input::get('link');
+		$documento->descripcion = Input::get('descripcion');
 		$documento->id_area	 	= Input::get('id_area');	
 		$documento->fecha_alta	= Input::get('fecha_alta');
 
@@ -195,7 +194,7 @@ class DocumentosController extends BaseController{
 		$resp['documento']	= Documento::findOrFail($id);
 		$resp['areas'] 		= Area::lists('area', 'id');
 
-		return View::make('documentos.edit')->with($resp);
+		return View::make('documentos.form')->with($resp);
 
 	}
 
@@ -206,13 +205,12 @@ class DocumentosController extends BaseController{
 
 		$documento = Documento::find($id);
 
-		$folder	=	explode('/',$this->destinationPath.$documento->documento);
-		
+		//$folder	=	explode(app_path().$this->destinationPath.$documento->documento);
 		//return $folder[0]."/".$folder[1];
 		
 		if($documento->delete()){
 		
-			File::deleteDirectory($folder[0]."/".$folder[1]."/".$folder[2]);
+			File::delete(app_path().$this->destinationPath.$documento->documento);
 
 			return Redirect::to('admin/documentos')->with('success', 'Eliminado Correctamente.');
 
@@ -223,6 +221,19 @@ class DocumentosController extends BaseController{
 		}
 
 	}
+
+	public function Download($idDocumento = null)
+	{
+		$documento 	= Documento::find($idDocumento);
+		$ruta 		= app_path($this->destinationPath.$documento->documento);
+
+		if (!File::exists($ruta))
+			return App::abort(404);
+
+		$extension = File::extension($ruta);
+
+		return Response::download($ruta, $documento->titulo .".". $extension);		
+	}	
 
 
 }

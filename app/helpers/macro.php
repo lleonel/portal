@@ -1,6 +1,6 @@
 <?php
 
-	Form::macro('date', function($name)
+	Form::macro('date', function($name, $label = null)
 		{
 			$value = Form::getValueAttribute($name);
 
@@ -11,10 +11,15 @@
 			//return '<input type="text" class="datepicker " name="'.$name.'" placeholder="dd/mm/yyyy" value="'.$value.'">';
 		});
 
-	Form::macro('areas', function($name)
+	Form::macro('areas', function($name, $label)
 		{
 			$areas = Area::lists('area','id');
-			return Form::select($name,$areas,array('class'=>'form-control')); 
+
+			$value = Form::getValueAttribute($name);
+
+			return '<div class="form-group">
+						<label>'.$label.'</label>'.
+						Form::select($name, $areas , $value , array('class'=>'form-control')) .'</div>'; 
 		});
 
 	Form::macro('edit', function($name,$label)
@@ -59,6 +64,24 @@
 					</div>';
 
 		});
+
+	Form::macro('archivo', function($name, $label)
+		{	
+			$value = Form::getValueAttribute($name);
+			$thumb = "";
+
+			if($value)
+			{
+				$thumb = $value;
+			}
+			
+			return '<div class="form-group">
+						'.$thumb.' <br>
+						<label>'.$label.'</label>
+						<input type="file"  name="'.$name.'" >
+					</div>';
+		});
+
 
 	
 ?>

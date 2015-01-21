@@ -29,7 +29,8 @@ class webDocumentosController extends BaseController {
 		$documento->visita++;
 		$documento->save();
 
-		return Response::download($ruta, 'download.' . $extension);
+		//return Response::download($ruta, 'download.' . $extension);
+		return Response::download($ruta, $documento->titulo .".". $extension);		
 		
 	}
 }

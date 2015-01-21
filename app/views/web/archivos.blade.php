@@ -19,7 +19,7 @@
 						    		<thead>
 						    			<tr>
 						    				<th>Creacion</th>
-						    				<th>Nombre Archivo</th>
+						    				<th>Descripción</th>
 						    				<th>Area</th>
 						    				<th>Descargar</th>
 						    			</tr>
@@ -29,8 +29,8 @@
 						    		
 											<tr>
 												<td>{{$documento->fecha_alta}}</td>					
-												<td>{{$documento->titulo}}<span class="pull-right badge">{{$documento->visita}}</span></td>
-												<td>{{$documento->id_area}}</td>
+												<td>{{$documento->descripcion}}<span class="pull-right badge">{{$documento->visita}}</span></td>
+												<td>{{$documento->Area->area}}</td>
 												<td>
 												
 												<a href="{{ route('web_get_documentos_download', $documento->id) }}" class="btn" > <i class="icon-download"></i>  </a></td>

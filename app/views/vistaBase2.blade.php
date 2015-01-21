@@ -39,16 +39,16 @@
 
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="/">Inicio</a></li>
-					<li><a href="admin/novedades">Novedades</a></li>
-					<li><a href="admin/documentos">Documentos</a></li>
-					<li><a href="admin/areas">Areas</a></li>
-					<li><a href="admin/protocolo">Protocolo Tel.</a></li>
+					<li><a href="{{route('admin_get_novedades')}}">Novedades</a></li>
+					<li><a href="{{route('admin_get_documentos')}}">Documentos</a></li>
+					<li><a href="{{route('admin_get_areas')}}">Areas</a></li>
+					<li><a href="{{route('admin_get_protocolo')}}">Protocolo Tel.</a></li>
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Configuracion Web <b class="caret"></b></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-							<li><a href="admin/menu">Menu Web</a></li>
-							<li><a href="admin/slider">Slider</a></li>
-							<li><a href="admin/banner">Banner</a></li>
+							<li><a href="{{route('admin_get_menu_web')}}">Menu Web</a></li>
+							<li><a href="{{route('admin_get_slider_web')}}">Slider</a></li>
+							<li><a href="{{route('admin_get_banner_web')}}">Banner</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -68,9 +68,10 @@
 			</div><!-- /.navbar-collapse -->
 		</nav>
 
-			@include('partials.msgs')
+			
 
 		<div class="container">
+			@include('partials.msgs')
 			@yield('content')
 		</div>
 		

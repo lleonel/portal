@@ -1,84 +1,51 @@
 @extends('vistaBase2')
-
-
 @section('content')
 
-	<div class="row-fluid">
-    <div class="span2">
+	<div class="row"> 
+	    <div class="col-md-12">
+			<h4><strong>Documentos</strong></h4>
+			<p><a href="{{route('admin_new_documentos')}}" class="btn btn-xs btn-warning"> Agregar</a></p>
+			<hr>
 			
-	
-	<h3>Documentos</h3>
+			<table class="table table-striped ">
+			<thead>
+			<tr>
+				<th>Creado</th>
+				<th>Descripción</th>
+				<th>Área</th>
+				<th>Descargar</th>
+				<th>Link</th>
+				<th style="width:10%"><th>
+			</tr>
+			</thead>
 
-	<p><a href="admin/documentos"><i class="icon-th-list"></i> Listas </a></p>
-	<p><a href="admin/documentos/new"><i class="icon-plus"></i> Agregar  </a> </p>
-			
-    </div>
-    
-    <div class="span10">
+			<tbody>	
 
-		<div class="tab-content">
-			<div class="tab-pane active" id="1">
-					<table class="table table-striped table-bordered dataTable" id="grid">
-					<thead>
-						<tr>
-							<th>Creado</th>
-							<th>Título</th>
-							<th>Área</th>
-							<th>Descargar</th>
-							<th>Link</th>
-							<th></th>
+				@foreach ($documentos as $doc)
 
-						</tr>
-					</thead>
-
-					<tbody>	
-				
-						@foreach ($documentos as $doc)
-
-							<tr class="odd_gradeX">
-								<td>{{ $doc->fecha_alta }}</td>	
-								<td>{{ $doc->titulo }}</td>
-								<td>{{ $doc->id_area }}</td>
-								<td><a href="uploads/documentos/{{ $doc->documento }}">{{ $doc->documento }}</a></td>
-								<td> 
-									<a href="{{$doc->link}}">{{$doc->link}}</a>
-								</td>
-								<td> 
-
-									<div class="btn-group">
-										<a type="button" class="btn btn-mini"  onclick="modificar('{{Crypt::encrypt($doc->id)}}')" href="admin/documentos/edit/{{ Crypt::encrypt($doc->id) }}"><span class="icon-pencil"></span></a>
-
-										<a type="button" class="btn"  onclick="if(!eliminar())return"   href="admin/documentos/del/{{ Crypt::encrypt($doc->id) }}" ><span class="icon-download"></span></a>
-									</div>
-								
-								</td>
-							</tr>
-							
-						@endforeach
+					<tr>
+						<td>{{ $doc->fecha_alta }}</td>	
+						<td>{{ $doc->descripcion }}</td>
+						<td>{{ $doc->Area->area }}</td>
+						<td><a href="{{route('download_documentos', $doc->id )}}">{{ $doc->titulo }}</a></td>
+						<td> 
+							<a href="{{$doc->link}}">{{$doc->link}}</a>
+						</td>
+						<td> 
+							<div class="btn-group btn-group-xs" role="group"> 
+								<a  title="editar" class="btn  btn-success"  href="{{route('admin_edit_documentos', Crypt::encrypt($doc->id))}}"><i class="glyphicon glyphicon-pencil"></i></a>
+								<a  title="eliminar" class=" delete btn btn-danger" href="{{route('admin_delete_documentos', Crypt::encrypt($doc->id))}}" ><i class="glyphicon glyphicon-remove"></i></a>
+							</div>
+						</td>
+					</tr>
 					
-					</tbody>
-					</table>
+				@endforeach
 
-			</div>
+			</tbody>
+			</table>
 		</div>
-
+		{{$documentos->links()}}
 	</div>
-
-</div>
-
-		
-
-<script type="text/javascript">
-
-		function eliminar(){
-		if(confirm("Desde Eliminar el registro seleccionado?")){
-		 // window.location.assign("novedades/del/" + id);	  
-			return true;
-		}else{
-			return false;
-		}
-	} 
-</script>
 
 @stop
 

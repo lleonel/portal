@@ -21,10 +21,12 @@
 			    					</a>
 			    				</figure>
 			    			</span>
-			    			<h1><span id="ctl00_Contenido_lbl_Titulo">{{substr($novedad->titulo,0,70)}}...</span></h1>
-			    			<p><span id="ctl00_Contenido_lbl_bajada">{{substr($novedad->encabezado,0,100)}}...</span></p>
+			    			<h1>
+			    				<span id="ctl00_Contenido_lbl_Titulo">{{ str_limit($novedad->titulo,70)}}</span>
+			    			</h1>
+			    			<p><span id="ctl00_Contenido_lbl_bajada">{{ str_limit($novedad->encabezado,100)}}</span></p>
 			    			<div class="post-options">
-			    				<a href="novedades/{{Crypt::encrypt($novedad->id)}}" class="btn btn-medium more-link">
+			    				<a href="{{ route('web_get_noticias_show', [$novedad->slug, $novedad->id]) }}"  class="btn btn-medium more-link">
 			    					<span class="icon icon-bubble-1"></span> 
 			    					<span class="resp">Leer más</span>
 			    				</a>

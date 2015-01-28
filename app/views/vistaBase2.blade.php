@@ -88,6 +88,32 @@
 	
 		<script type="text/javascript">
 
+			//todos los checked 
+			$('#del').on('click',function(){
+
+				if(confirm("Desde Eliminar el registro seleccionado?")){
+					$("input:checkbox:checked").each(function(){
+						//cada elemento seleccionado
+						var id = $(this).attr('data-id');
+
+						//$.ajax({  url: url,  data: data,  success: success,  dataType: dataType});
+
+						$.get("admin/ws/documentos/delete/"+ id  , function(data){
+							if( data == "false" )
+							{
+								alert('Error al eliminar registro');
+							}else{
+								window.location.href = window.location.href;
+							}
+						});
+					});
+				}else{
+					return false;
+				}
+				
+			});
+
+
 			//confirm delete item
 			$('.delete').on('click',function(){
 				if(confirm("Desde Eliminar el registro seleccionado?")){

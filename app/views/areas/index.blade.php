@@ -3,60 +3,57 @@
 
 @section('content')
 
-
-	<div class="row-fluid">
-    <div class="span2">
+	<div class="row"> 
+	    <div class="col-md-12">
+			<h4><strong>Areas</strong></h4>
+			<hr>
+			<div class="btn-group btn-group-xs " aria-label="First group" role="group">
+				<a href="{{route('admin_new_areas')}}" class="btn btn-warning"> <i class="glyphicon glyphicon-plus"></i> Agregar</a>
+				<button id="del" class="btn  btn-danger" ><i class="glyphicon glyphicon-trash"></i> Eliminar</button>
+				<button class="btn  " type="button"><i class="glyphicon glyphicon-print"></i> Imprimir</button>
+			</div>
+					
 			
-	
-	<h3>Areas</h3>
+			<table class="table table-striped  ">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Nro.</th>
+					<th>Nombre Área</th>
+					<th style="width:10%"><th>
+				</tr>
+			</thead>
 
-	<p><a href="admin/areas"><i class="icon-th-list"></i> Listas </a></p>
-	<p><a href="admin/areas/new"><i class="icon-plus"></i> Agregar  </a> </p>
-			
-    </div>
-    
-    <div class="span10">
+			<tbody>	
 
-    	@include('partials.msgs')
+				@foreach ($areas as $area)
 
-		<div class="tab-content">
-			<div class="tab-pane active" id="1">
-					<table class="table table-striped table-bordered dataTable" id="grid">
-					<thead>
-						<tr>
-							<th>Nro.</th>
-							<th>Area</th>
-							<th></th>
-						</tr>
-					</thead>
-
-					<tbody>	
-				
-						@foreach ($areas as $area)
-
-						<tr class="odd_gradeX">
+					<tr>
+						<td><input type="checkbox" data-id="{{$area->id}}" ></td>
 						<td>{{ $area->id }}</td>
 						<td>{{ $area->area }}</td>
+						<td></td>
+						
 						<td> 
-
-							<div class="btn-group">
-								<button type="button" class="btn btn-mini" onclick="modificar('{{Crypt::encrypt($area->id)}}')"><span class="icon-pencil"></span></button>
-								<button type="button" class="btn btn-mini" onclick="eliminar('{{Crypt::encrypt($area->id)}}')"><span class="icon-remove"></span></button>
+							<div class="btn-group btn-group-xs" role="group"> 
+								<a  title="editar" class="btn btn-xs btn-success"  href="{{route('admin_edit_documentos', Crypt::encrypt($area->id))}}"><i class="glyphicon glyphicon-pencil"></i> Editar</a>
 							</div>
-						
 						</td>
-						
-						@endforeach
+					</tr>
 					
-					</tbody>
-					</table>
+				@endforeach
 
-			</div>
+			</tbody>
+			</table>
 		</div>
-
+		{{$areas->links()}}
 	</div>
 
-</div>
+
+		
+    </div>
+    
+   
 
 		
 

@@ -6,7 +6,7 @@ class LoginController extends BaseController {
 	public function postLogin(){
 
 		$rules 	=  array(
-		'g-recaptcha-response' => 'required|captcha',
+		//'g-recaptcha-response' => 'required|captcha',
 		'username' => 'required',
 		'password' => 'required'
 		); 
@@ -15,7 +15,6 @@ class LoginController extends BaseController {
 
 		if ($validator->fails())
 			return Redirect::back()->withErrors($validator)->withInput();
-		
 
 		if (Ldapsearch::auth(Input::get('username'), Input::get('password')))
 		{	

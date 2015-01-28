@@ -1,5 +1,8 @@
 <?php
 //test
+Route::get('test',function(){
+	return View::make('hello');
+});
 
 # Login
 require (__DIR__ . '/routes/login.php');
@@ -22,6 +25,10 @@ Route::group(array('before' => 'auth'), function()
 	# PREFIX: Admin
 	Route::group(array('prefix' => 'admin'), function()
 	{
+		require (__DIR__ . '/routes/admin/novedades.php');
+		require (__DIR__ . '/routes/admin/documentos.php');
+		require (__DIR__ . '/routes/admin/areas.php');
+
 		require (__DIR__ . '/routes/admin.php');
 	});
 

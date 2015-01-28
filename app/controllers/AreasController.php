@@ -11,8 +11,8 @@ class AreasController extends BaseController{
 		 	return Redirect::to('/admin')->with('warning','Acceso Denegado');
 		 }
 
-		$resp['titulo'] =  "Lista de Areas";
-		$resp['areas'] 	= 	Area::all();
+			$resp['titulo'] =  "Lista de Areas";
+			$resp['areas'] 	= 	Area::paginate(5);
 
 			return View::make('areas.index')->with($resp);
 	}

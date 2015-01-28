@@ -4,12 +4,18 @@
 	<div class="row"> 
 	    <div class="col-md-12">
 			<h4><strong>Documentos</strong></h4>
-			<p><a href="{{route('admin_new_documentos')}}" class="btn btn-xs btn-warning"> Agregar</a></p>
 			<hr>
+			<div class="btn-group btn-group-xs " aria-label="First group" role="group">
+				<a href="{{route('admin_new_documentos')}}" class="btn btn-warning"> <i class="glyphicon glyphicon-plus"></i> Agregar</a>
+				<button id="del" class="btn  btn-danger" ><i class="glyphicon glyphicon-trash"></i> Eliminar</button>
+				<button class="btn  " type="button"><i class="glyphicon glyphicon-print"></i> Imprimir</button>
+			</div>
+					
 			
 			<table class="table table-striped ">
 			<thead>
 			<tr>
+				<th></th>
 				<th>Creado</th>
 				<th>Descripción</th>
 				<th>Área</th>
@@ -24,6 +30,7 @@
 				@foreach ($documentos as $doc)
 
 					<tr>
+						<td><input type="checkbox" data-id="{{$doc->id}}" ></td>
 						<td>{{ $doc->fecha_alta }}</td>	
 						<td>{{ $doc->descripcion }}</td>
 						<td>{{ $doc->Area->area }}</td>
@@ -33,8 +40,7 @@
 						</td>
 						<td> 
 							<div class="btn-group btn-group-xs" role="group"> 
-								<a  title="editar" class="btn  btn-success"  href="{{route('admin_edit_documentos', Crypt::encrypt($doc->id))}}"><i class="glyphicon glyphicon-pencil"></i></a>
-								<a  title="eliminar" class=" delete btn btn-danger" href="{{route('admin_delete_documentos', Crypt::encrypt($doc->id))}}" ><i class="glyphicon glyphicon-remove"></i></a>
+								<a  title="editar" class="btn btn-xs btn-success"  href="{{route('admin_edit_documentos', Crypt::encrypt($doc->id))}}"><i class="glyphicon glyphicon-pencil"></i> Editar</a>
 							</div>
 						</td>
 					</tr>
@@ -46,6 +52,8 @@
 		</div>
 		{{$documentos->links()}}
 	</div>
+
+
 
 @stop
 

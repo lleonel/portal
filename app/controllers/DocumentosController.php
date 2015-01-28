@@ -213,7 +213,7 @@ class DocumentosController extends BaseController{
 			File::delete(app_path().$this->destinationPath.$documento->documento);
 
 			return Redirect::to('admin/documentos')->with('success', 'Eliminado Correctamente.');
-
+			
 		}else{
 		
 			return Redirect::back()->with("error","Error"); 

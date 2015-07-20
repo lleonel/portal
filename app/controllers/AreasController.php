@@ -1,8 +1,9 @@
 <?php
+
+
 class AreasController extends BaseController{
 
 	public $idModulo = 2;
-
 
 	public function getIndex(){
 
@@ -14,9 +15,10 @@ class AreasController extends BaseController{
 			$resp['titulo'] =  "Lista de Areas";
 			$resp['areas'] 	= 	Area::paginate(5);
 
-			return View::make('areas.index')->with($resp);
-	}
 
+			return View::make('areas.index')->with($resp);
+
+	}
 
 	public function getNew() {
 
@@ -107,7 +109,6 @@ class AreasController extends BaseController{
 		}
 
 	}
-
 
 	public function validarMetodo($metodo)
 	{

@@ -1,6 +1,26 @@
 <?php
+
 //test
 Route::get('test',function(){
+
+	define('STDIN',fopen("php://stdin","r"));
+	//Artisan::call('migrate:install');
+	//Artisan::call('migrate:make',array('2015_01_30_135654_test'));
+	//Artisan::call('migrate:make',array('--table'=>'mb','--create'));
+
+
+	try {
+
+		//Artisan::call('migrate:install');
+		//Artisan::call('migrate:make mb',array('--table'=>'mb','--create'));
+		//Artisan::call('migrate', array('--force' => true));
+		//dd(Artisan::call('migrate:make', 'mn_1234') );
+
+	} catch (Exception $e) {
+		
+		echo $e;
+	} 
+
 	return View::make('hello');
 });
 
